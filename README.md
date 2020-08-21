@@ -2,9 +2,9 @@
 
 This is a simple project that asks the user for their name and then tells them their fortune.
 
-Please extend the functionality:
+1. Get tests around the existing functionality. You will probably need to wrap `Console` in order to get it under test. See `DateTimeOffsetWrapper` for an example. You can use any unit testing and mocking libraries of your choice.
 
-1. Show the user the fortune on the day they were born.
+2. Show the user the fortune on the day they were born.
 
 E.G.
 ```
@@ -15,7 +15,7 @@ Your fortune for today is: Newlyweds should be avoided!
 On the day you were born your fortune was: Beware of figs!
 ```
 
-2. If today is the user's birthday wish them a happy birthday.
+3. If today is the user's birthday wish them a happy birthday.
 
 E.G.
 ```
@@ -25,5 +25,3 @@ Happy birthday, Bob!
 Your fortune for today is: Newlyweds should be avoided!
 On the day you were born your fortune was: Beware of figs!
 ```
-
-Demonstrate that your solution meets the requirements using automated tests.
