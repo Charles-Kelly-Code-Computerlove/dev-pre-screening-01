@@ -1,10 +1,10 @@
-# Code Computerlove
+# Code Computerlove pre-screening exercise 1
 
 This is a simple project that asks the user for their name and then tells them their fortune.
 
 Please extend the functionality:
 
-1. Show the user the fortune from the day of their birthday.
+1. Show the user the fortune on the day they were born.
 
 E.G.
 ```

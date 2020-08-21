@@ -27,7 +27,7 @@ namespace Fortune
 				DayOfWeek.Friday => "Newlyweds should be avoided!",
 				DayOfWeek.Saturday => "Everything's coming up Milhouse!",
 				DayOfWeek.Sunday => "Fortune cookies are always untrue!",
-				_ => "You appear to be in a universe with additionjal days of the week. Congratulations!"
+				_ => "You appear to be in a universe with additional days of the week. Congratulations!"
 			};
 
 			return fortune;
