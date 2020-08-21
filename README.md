@@ -2,6 +2,8 @@
 
 This is a simple project that asks the user for their name and then tells them their fortune.
 
+Please complete the following steps:
+
 1. Get tests around the existing functionality. You will probably need to wrap `Console` in order to get it under test. See `DateTimeOffsetWrapper` for an example. You can use any unit testing and mocking libraries of your choice.
 
 2. Show the user the fortune on the day they were born.
