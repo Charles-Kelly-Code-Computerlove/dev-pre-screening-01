@@ -16,6 +16,8 @@
 			_console.WriteLine("What's your name? ");
 			var name = _console.ReadLine();
 
+			_console.WriteLine("When were you born (dd/mm/yyyy)?");
+
 			var person = new Person {Name = name};
 
 			_console.WriteLine(

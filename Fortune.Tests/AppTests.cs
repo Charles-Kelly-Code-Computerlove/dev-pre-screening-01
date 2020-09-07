@@ -31,7 +31,7 @@ namespace Fortune.Tests
 
 			app.Run();
 
-			fakeConsole.WrittenLines[1].Should().StartWith("Hi Peter!");
+			fakeConsole.WrittenLines[2].Should().StartWith("Hi Peter!");
 		}
 
 		[TestCase("2020/09/07", "Bad luck falls on Mondays!")]
@@ -53,7 +53,21 @@ namespace Fortune.Tests
 
 			app.Run();
 
-			fakeConsole.WrittenLines[1].Should().EndWith(result);
+			fakeConsole.WrittenLines[2].Should().EndWith(result);
+		}
+
+		[Test]
+		public void AppRun_SecondOutputAsksForYourBirthday()
+		{
+			var fakeConsole = new FakeConsole();
+			fakeConsole.LinesToRead.Enqueue("name");
+
+			var fortuneCookie = new FortuneCookie(new DateTimeOffsetWrapper());
+			var app = new App(fortuneCookie, fakeConsole);
+
+			app.Run();
+
+			fakeConsole.WrittenLines[1].Should().Be("What's your birthday?");
 		}
 	}
 }
