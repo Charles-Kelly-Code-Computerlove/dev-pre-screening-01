@@ -29,7 +29,7 @@ namespace Fortune
 				return;
 			}
 
-			if (dateOfBirth == DateTime.Parse("01/01/1995"))
+			if (_fortuneCookie.IsTodayABirthdayForDateOfBirth(dateOfBirth))
 			{
 				_console.WriteLine($"Happy birthday, {name}!");
 			}
@@ -58,8 +58,11 @@ namespace Fortune
 		{
 			var person = new Person {Name = name, DateOfBirth = dateOfBirth};
 
+			var greeting = _fortuneCookie.IsTodayABirthdayForDateOfBirth(dateOfBirth) ? "" : $"Hi { person.Name}!\n";
+			var todaysFortune = $"Your fortune for today is: {_fortuneCookie.GetTodaysFortune()}";
+			var output = greeting + todaysFortune;
 			_console.WriteLine(
-				$"Hi {person.Name}!\nYour fortune for today is: {_fortuneCookie.GetTodaysFortune()}");
+				output);
 
 			_console.WriteLine(
 				$"On the day you were born your fortune was: {_fortuneCookie.GetFortuneForDate(person.DateOfBirth)}");

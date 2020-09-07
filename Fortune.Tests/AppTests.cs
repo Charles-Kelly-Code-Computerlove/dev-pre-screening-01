@@ -133,7 +133,7 @@ namespace Fortune.Tests
 			fakeConsole.LinesToRead.Enqueue("Peter");
 			fakeConsole.LinesToRead.Enqueue("01/01/1995");
 
-			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset { Now = DateTimeOffset.Parse("01/01/1990") });
+			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset { Now = DateTimeOffset.Parse("01/01/2020") });
 			var app = new App(fortuneCookie, fakeConsole);
 
 			app.Run();
@@ -148,12 +148,58 @@ namespace Fortune.Tests
 			fakeConsole.LinesToRead.Enqueue("John");
 			fakeConsole.LinesToRead.Enqueue("01/01/1995");
 
-			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset { Now = DateTimeOffset.Parse("01/01/1990") });
+			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset { Now = DateTimeOffset.Parse("01/01/2020") });
 			var app = new App(fortuneCookie, fakeConsole);
 
 			app.Run();
 
 			fakeConsole.WrittenLines[2].Should().Be("Happy birthday, John!");
+		}
+
+		[Test]
+		public void AppRun_DateOfBirthIsJanuaryFirstButTodayIsDifferentDate_DoNotWishHappyBirthday()
+		{
+			var fakeConsole = new FakeConsole();
+			fakeConsole.LinesToRead.Enqueue("John");
+			fakeConsole.LinesToRead.Enqueue("01/01/1995");
+
+			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset { Now = DateTimeOffset.Parse("02/02/2020") });
+			var app = new App(fortuneCookie, fakeConsole);
+
+			app.Run();
+
+			fakeConsole.WrittenLines[2].Should().NotBe("Happy birthday, John!");
+		}
+
+		[Test]
+		public void AppRun_TodayIsJanuaryFirstButDateOfBirthIsDifferentDate_DoNotWishHappyBirthday()
+		{
+			var fakeConsole = new FakeConsole();
+			fakeConsole.LinesToRead.Enqueue("John");
+			fakeConsole.LinesToRead.Enqueue("02/02/1995");
+
+			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset { Now = DateTimeOffset.Parse("01/01/2020") });
+			var app = new App(fortuneCookie, fakeConsole);
+
+			app.Run();
+
+			fakeConsole.WrittenLines[2].Should().NotBe("Happy birthday, John!");
+		}
+
+		[Test]
+		public void AppRun_TodayIsBirthdayForDateOfBirth_WishHappyBirthdayAndDoNotGreetAgain()
+		{
+			var fakeConsole = new FakeConsole();
+			fakeConsole.LinesToRead.Enqueue("John");
+			fakeConsole.LinesToRead.Enqueue("05/05/1985");
+
+			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset { Now = DateTimeOffset.Parse("05/05/2020") });
+			var app = new App(fortuneCookie, fakeConsole);
+
+			app.Run();
+
+			fakeConsole.WrittenLines[2].Should().Be("Happy birthday, John!");
+			fakeConsole.WrittenLines[3].Should().Be("Your fortune for today is: Beware of figs!");
 		}
 
 		private static FakeConsole GenerateFakeConsoleWithInputs()

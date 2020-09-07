@@ -16,6 +16,11 @@ namespace Fortune
 			return GetFortuneForDate(_now);
 		}
 
+		public bool IsTodayABirthdayForDateOfBirth(DateTime dateOfBirth)
+		{
+			return _now.Day == dateOfBirth.Day && _now.Month == dateOfBirth.Month;
+		}
+
 		public string GetFortuneForDate(DateTimeOffset date)
 		{
 			string fortune = date.DayOfWeek switch
