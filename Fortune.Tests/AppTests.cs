@@ -18,5 +18,19 @@ namespace Fortune.Tests
 
 			fakeConsole.WrittenLines[0].Should().Be("What's your name? ");
 		}
+
+		[Test]
+		public void AppRun_NameInputAsPeter_SecondOutputHasGreetingUsingInputName()
+		{
+			var fakeConsole = new FakeConsole();
+			fakeConsole.LinesToRead.Enqueue("Peter");
+
+			var fortuneCookie = new FortuneCookie(new DateTimeOffsetWrapper());
+			var app = new App(fortuneCookie, fakeConsole);
+
+			app.Run();
+
+			fakeConsole.WrittenLines[1].Should().StartWith("Hi Peter!");
+		}
 	}
 }
