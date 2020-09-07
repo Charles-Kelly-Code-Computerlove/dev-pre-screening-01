@@ -9,8 +9,7 @@ namespace Fortune.Tests
 		[Test]
 		public void AppRun_NameIsGiven_FirstOutputAsksForYourName()
 		{
-			var fakeConsole = new FakeConsole();
-			fakeConsole.LinesToRead.Enqueue("name");
+			var fakeConsole = GenerateFakeConsoleWithInputs();
 
 			var fortuneCookie = new FortuneCookie(new DateTimeOffsetWrapper());
 			var app = new App(fortuneCookie, fakeConsole);
@@ -25,6 +24,7 @@ namespace Fortune.Tests
 		{
 			var fakeConsole = new FakeConsole();
 			fakeConsole.LinesToRead.Enqueue("Peter");
+			fakeConsole.LinesToRead.Enqueue("01/01/1990");
 
 			var fortuneCookie = new FortuneCookie(new DateTimeOffsetWrapper());
 			var app = new App(fortuneCookie, fakeConsole);
@@ -45,8 +45,7 @@ namespace Fortune.Tests
 			DateTimeOffset currentDate,
 			string result)
 		{
-			var fakeConsole = new FakeConsole();
-			fakeConsole.LinesToRead.Enqueue("Peter");
+			var fakeConsole = GenerateFakeConsoleWithInputs();
 
 			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset {Now = currentDate});
 			var app = new App(fortuneCookie, fakeConsole);
@@ -59,15 +58,35 @@ namespace Fortune.Tests
 		[Test]
 		public void AppRun_SecondOutputAsksForYourBirthday()
 		{
-			var fakeConsole = new FakeConsole();
-			fakeConsole.LinesToRead.Enqueue("name");
+			var fakeConsole = GenerateFakeConsoleWithInputs();
 
 			var fortuneCookie = new FortuneCookie(new DateTimeOffsetWrapper());
 			var app = new App(fortuneCookie, fakeConsole);
 
 			app.Run();
 
-			fakeConsole.WrittenLines[1].Should().Be("What's your birthday?");
+			fakeConsole.WrittenLines[1].Should().Be("When were you born (dd/mm/yyyy)?");
+		}
+
+		[Test]
+		public void AppRun_WhenNormalUse_ReadsTwoInputs()
+		{
+			var fakeConsole = GenerateFakeConsoleWithInputs();
+
+			var fortuneCookie = new FortuneCookie(new DateTimeOffsetWrapper());
+			var app = new App(fortuneCookie, fakeConsole);
+
+			app.Run();
+
+			fakeConsole.LinesToRead.Count.Should().Be(0);
+		}
+
+		private static FakeConsole GenerateFakeConsoleWithInputs()
+		{
+			var fakeConsole = new FakeConsole();
+			fakeConsole.LinesToRead.Enqueue("name");
+			fakeConsole.LinesToRead.Enqueue("01/01/1990");
+			return fakeConsole;
 		}
 	}
 }
