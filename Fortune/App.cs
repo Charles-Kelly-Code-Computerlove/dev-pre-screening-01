@@ -51,12 +51,13 @@ namespace Fortune
 
 		private void GiveFortune(string name, DateTime dateOfBirth)
 		{
-			var person = new Person {Name = name};
+			var person = new Person {Name = name, DateOfBirth = dateOfBirth};
 
 			_console.WriteLine(
 				$"Hi {person.Name}!\nYour fortune for today is: {_fortuneCookie.GetTodaysFortune()}");
-				_console.WriteLine(
-					$"On the day you were born your fortune was: {_fortuneCookie.GetFortuneForDate(dateOfBirth)}");
+
+			_console.WriteLine(
+				$"On the day you were born your fortune was: {_fortuneCookie.GetFortuneForDate(person.DateOfBirth)}");
 		}
 
 		private string AskForAndGetName()
