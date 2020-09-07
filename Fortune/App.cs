@@ -18,9 +18,10 @@ namespace Fortune
 		{
 			var name = AskForAndGetName();
 
+			DateTime dateOfBirth;
 			try
 			{
-				AskForAndGetDateOfBirth();
+				dateOfBirth = AskForAndGetDateOfBirth();
 			}
 			catch
 			{
@@ -28,7 +29,7 @@ namespace Fortune
 				return;
 			}
 
-			GiveFortune(name);
+			GiveFortune(name, dateOfBirth);
 		}
 
 		private DateTime AskForAndGetDateOfBirth()
@@ -36,7 +37,7 @@ namespace Fortune
 			_console.WriteLine("When were you born (dd/mm/yyyy)?");
 			var dateOfBirthInput = _console.ReadLine();
 
-			var dateOfBirthFormat = "dd/mm/yyyy";
+			var dateOfBirthFormat = "dd/MM/yyyy";
 
 			if (!DateTime.TryParseExact(dateOfBirthInput, dateOfBirthFormat, new CultureInfo("GB"),
 				DateTimeStyles.None,
@@ -48,12 +49,14 @@ namespace Fortune
 			return dateOfBirth;
 		}
 
-		private void GiveFortune(string name)
+		private void GiveFortune(string name, DateTime dateOfBirth)
 		{
 			var person = new Person {Name = name};
 
 			_console.WriteLine(
 				$"Hi {person.Name}!\nYour fortune for today is: {_fortuneCookie.GetTodaysFortune()}");
+				_console.WriteLine(
+					$"On the day you were born your fortune was: {_fortuneCookie.GetFortuneForDate(dateOfBirth)}");
 		}
 
 		private string AskForAndGetName()
