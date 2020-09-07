@@ -1,27 +1,25 @@
-﻿using System;
-
-namespace Fortune
+﻿namespace Fortune
 {
 	public class App
 	{
 		private readonly FortuneCookie _fortuneCookie;
+		private readonly IConsole _console;
 
-		public App(FortuneCookie fortuneCookie)
+		public App(FortuneCookie fortuneCookie, IConsole console)
 		{
 			_fortuneCookie = fortuneCookie;
+			_console = console;
 		}
 
 		public void Run()
 		{
-			Console.Write("What's your name? ");
-			var name = Console.ReadLine();
+			_console.WriteLine("What's your name? ");
+			var name = _console.ReadLine();
 
 			var person = new Person {Name = name};
 
-			Console.WriteLine(
-				"Hi {0}!\nYour fortune for today is: {1}",
-				person.Name,
-				_fortuneCookie.GetTodaysFortune());
+			_console.WriteLine(
+				$"Hi {person.Name}!\nYour fortune for today is: {_fortuneCookie.GetTodaysFortune()}");
 		}
 	}
 }

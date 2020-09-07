@@ -36,3 +36,4 @@ paket-files/
 .paket/paket
 
 ~$*.pptx
+*.ncrunchsolution
