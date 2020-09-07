@@ -29,12 +29,9 @@ namespace Fortune
 				return;
 			}
 
-			if (_fortuneCookie.IsTodayABirthdayForDateOfBirth(dateOfBirth))
-			{
-				_console.WriteLine($"Happy birthday, {name}!");
-			}
+			var person = new Person { Name = name, DateOfBirth = dateOfBirth };
 
-			GiveFortune(name, dateOfBirth);
+			GiveFortune(person);
 		}
 
 		private DateTime AskForAndGetDateOfBirth()
@@ -54,15 +51,11 @@ namespace Fortune
 			return dateOfBirth;
 		}
 
-		private void GiveFortune(string name, DateTime dateOfBirth)
+		private void GiveFortune(Person person)
 		{
-			var person = new Person {Name = name, DateOfBirth = dateOfBirth};
 
-			var greeting = _fortuneCookie.IsTodayABirthdayForDateOfBirth(dateOfBirth) ? "" : $"Hi { person.Name}!\n";
-			var todaysFortune = $"Your fortune for today is: {_fortuneCookie.GetTodaysFortune()}";
-			var output = greeting + todaysFortune;
-			_console.WriteLine(
-				output);
+			_console.WriteLine(_fortuneCookie.IsTodayABirthdayForDateOfBirth(person.DateOfBirth) ? $"Happy birthday, {person.Name}!" : $"Hi { person.Name}!");
+			_console.WriteLine($"Your fortune for today is: {_fortuneCookie.GetTodaysFortune()}");
 
 			_console.WriteLine(
 				$"On the day you were born your fortune was: {_fortuneCookie.GetFortuneForDate(person.DateOfBirth)}");

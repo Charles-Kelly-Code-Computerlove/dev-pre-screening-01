@@ -52,7 +52,7 @@ namespace Fortune.Tests
 
 			app.Run();
 
-			fakeConsole.WrittenLines[2].Should().EndWith(result);
+			fakeConsole.WrittenLines[3].Should().EndWith(result);
 		}
 
 		[Test]
@@ -108,7 +108,7 @@ namespace Fortune.Tests
 
 			app.Run();
 
-			fakeConsole.WrittenLines[3].Should().Be("On the day you were born your fortune was: Beware of figs!");
+			fakeConsole.WrittenLines[4].Should().Be("On the day you were born your fortune was: Beware of figs!");
 		}
 
 		[Test]
@@ -123,7 +123,7 @@ namespace Fortune.Tests
 
 			app.Run();
 
-			fakeConsole.WrittenLines[3].Should().Be("On the day you were born your fortune was: Avocadoes are lucky!");
+			fakeConsole.WrittenLines[4].Should().Be("On the day you were born your fortune was: Avocadoes are lucky!");
 		}
 
 		[Test]
