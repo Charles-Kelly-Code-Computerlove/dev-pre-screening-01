@@ -1,4 +1,7 @@
-﻿namespace Fortune
+﻿using System;
+using System.Globalization;
+
+namespace Fortune
 {
 	public class App
 	{
@@ -17,7 +20,13 @@
 			var name = _console.ReadLine();
 
 			_console.WriteLine("When were you born (dd/mm/yyyy)?");
-			var date = _console.ReadLine();
+			DateTime dateTime;
+			if (!DateTime.TryParseExact(_console.ReadLine(), "dd/mm/yyyy", new CultureInfo("GB"), DateTimeStyles.None,
+				out dateTime))
+			{
+				_console.WriteLine("That's not a date of birth. No fortune for you!");
+				return;
+			}
 
 			var person = new Person {Name = name};
 

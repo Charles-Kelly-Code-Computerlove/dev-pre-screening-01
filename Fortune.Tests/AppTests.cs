@@ -20,7 +20,7 @@ namespace Fortune.Tests
 		}
 
 		[Test]
-		public void AppRun_NameInputAsPeter_SecondOutputHasGreetingUsingInputName()
+		public void AppRun_NameInputAsPeter_ThirdOutputHasGreetingUsingInputName()
 		{
 			var fakeConsole = new FakeConsole();
 			fakeConsole.LinesToRead.Enqueue("Peter");
@@ -41,7 +41,7 @@ namespace Fortune.Tests
 		[TestCase("2020/09/11", "Newlyweds should be avoided!")]
 		[TestCase("2020/09/12", "Everything's coming up Milhouse!")]
 		[TestCase("2020/09/13", "Fortune cookies are always untrue!")]
-		public void AppRun_WhenDayOfTheWeek_SecondOutputReturnsCorrectFortuneForTheDayOfTheWeek(
+		public void AppRun_WhenDayOfTheWeek_ThirdOutputReturnsCorrectFortuneForTheDayOfTheWeek(
 			DateTimeOffset currentDate,
 			string result)
 		{
@@ -79,6 +79,21 @@ namespace Fortune.Tests
 			app.Run();
 
 			fakeConsole.LinesToRead.Count.Should().Be(0);
+		}
+
+		[Test]
+		public void AppRun_WhenIncorrectDateEnteredForDateOfBirthday_ThirdOutputReturnsWarning()
+		{
+			var fakeConsole = new FakeConsole();
+			fakeConsole.LinesToRead.Enqueue("Peter");
+			fakeConsole.LinesToRead.Enqueue("incorrect date format");
+
+			var fortuneCookie = new FortuneCookie(new DateTimeOffsetWrapper());
+			var app = new App(fortuneCookie, fakeConsole);
+
+			app.Run();
+
+			fakeConsole.WrittenLines[2].Should().Be("That's not a date of birth. No fortune for you!");
 		}
 
 		private static FakeConsole GenerateFakeConsoleWithInputs()
