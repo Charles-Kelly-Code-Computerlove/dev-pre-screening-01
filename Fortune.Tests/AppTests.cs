@@ -126,6 +126,36 @@ namespace Fortune.Tests
 			fakeConsole.WrittenLines[3].Should().Be("On the day you were born your fortune was: Avocadoes are lucky!");
 		}
 
+		[Test]
+		public void AppRun_WhenNameIsPeterAndTodayAndDateOfBirthIsJanuaryFirst_WishPeterHappyBirthday()
+		{
+			var fakeConsole = new FakeConsole();
+			fakeConsole.LinesToRead.Enqueue("Peter");
+			fakeConsole.LinesToRead.Enqueue("01/01/1995");
+
+			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset { Now = DateTimeOffset.Parse("01/01/1990") });
+			var app = new App(fortuneCookie, fakeConsole);
+
+			app.Run();
+
+			fakeConsole.WrittenLines[2].Should().Be("Happy birthday, Peter!");
+		}
+
+		[Test]
+		public void AppRun_WhenNameIsJohnAndTodayAndDateOfBirthIsJanuaryFirst_WishJohnHappyBirthday()
+		{
+			var fakeConsole = new FakeConsole();
+			fakeConsole.LinesToRead.Enqueue("John");
+			fakeConsole.LinesToRead.Enqueue("01/01/1995");
+
+			var fortuneCookie = new FortuneCookie(new FakeDateTimeOffset { Now = DateTimeOffset.Parse("01/01/1990") });
+			var app = new App(fortuneCookie, fakeConsole);
+
+			app.Run();
+
+			fakeConsole.WrittenLines[2].Should().Be("Happy birthday, John!");
+		}
+
 		private static FakeConsole GenerateFakeConsoleWithInputs()
 		{
 			var fakeConsole = new FakeConsole();

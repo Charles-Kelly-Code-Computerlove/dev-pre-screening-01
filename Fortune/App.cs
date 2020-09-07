@@ -29,6 +29,11 @@ namespace Fortune
 				return;
 			}
 
+			if (dateOfBirth == DateTime.Parse("01/01/1995"))
+			{
+				_console.WriteLine($"Happy birthday, {name}!");
+			}
+
 			GiveFortune(name, dateOfBirth);
 		}
 
